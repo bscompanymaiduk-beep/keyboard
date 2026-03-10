@@ -67,18 +67,7 @@ export default function HeroOverlay({ scrollContainerRef }: HeroOverlayProps) {
         pointerEvents: 'none',
       }}
     >
-      {/* 텍스트 가독성을 위한 그라데이션 오버레이 */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,1) 100%)',
-          opacity: overlayOpacity,
-        }}
-      />
+      {/* 그라데이션 오버레이 제거됨 */}
 
       {/* 메인 히어로 텍스트 그룹 */}
       <div
@@ -98,14 +87,14 @@ export default function HeroOverlay({ scrollContainerRef }: HeroOverlayProps) {
             DESIGNED FOR PERFECTION
           </motion.span>
 
-          <motion.h1 className="hero-title" style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}>
-            당신의 손끝에서<br />
-            <span className="text-gradient">완벽</span>이 시작된다
+          <motion.h1 className="hero-title" style={{ opacity: titleOpacity, y: titleY, scale: titleScale, textShadow: '0 0 40px rgba(0,0,0,0.8)' }}>
+            압도적인 <span className="text-gradient">성능</span>,<br />
+            독보적인 <span className="text-gradient">감각</span>
           </motion.h1>
 
-          <motion.p className="hero-subtitle" style={{ opacity: subtitleOpacity, y: subtitleY }}>
-            모든 키 입력에 정밀함을 담았습니다.<br />
-            KILLSHOT — 프리미엄 커스텀 기계식 키보드의 새로운 기준.
+          <motion.p className="hero-subtitle" style={{ opacity: subtitleOpacity, y: subtitleY, textShadow: '0 0 20px rgba(0,0,0,0.8)' }}>
+            비교할 수 없는 정밀함과 타건감.<br />
+            KILLSHOT — 커스텀 기계식 키보드의 최정점.
           </motion.p>
 
           <motion.div className="hero-cta" style={{ opacity: ctaOpacity, y: ctaY }}>

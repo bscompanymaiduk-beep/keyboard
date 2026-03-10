@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import postsData from '@/data/posts.json';
+import { getPosts } from '@/app/actions/postActions';
 
 // 타입 정의
 interface Post {
@@ -10,25 +10,34 @@ interface Post {
   title: string;
   content: string;
   author: string;
-  createdAt: string;
+  createdAt: any;
   views: number;
 }
 
 export default function CommunityPage() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [totalPosts, setTotalPosts] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const postsPerPage = 20;
   
   // 페이징 그룹 (1-10, 11-20 등)
   const pageGroupSize = 10;
   const currentGroup = Math.ceil(currentPage / pageGroupSize);
   const startPage = (currentGroup - 1) * pageGroupSize + 1;
-  const endPage = Math.min(startPage + pageGroupSize - 1, Math.ceil(posts.length / postsPerPage));
+  const totalPages = Math.max(1, Math.ceil(totalPosts / postsPerPage));
+  const endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
 
   useEffect(() => {
-    // 실제 환경에서는 API 호출을 하겠지만 여기서는 JSON 로드
-    setPosts(postsData);
-  }, []);
+    async function loadPosts() {
+      setLoading(true);
+      const { posts: loadedPosts, total } = await getPosts(currentPage, postsPerPage);
+      setPosts(loadedPosts as any);
+      setTotalPosts(total);
+      setLoading(false);
+    }
+    loadPosts();
+  }, [currentPage]);
 
   // 현재 페이지의 포스트 계산
   const indexOfLastPost = currentPage * postsPerPage;
@@ -136,9 +145,9 @@ export default function CommunityPage() {
             </button>
           ))}
 
-          {endPage < Math.ceil(posts.length / postsPerPage) && (
+          {endPage < totalPages && (
             <button 
-              onClick={() => paginate(endPage + 1)}
+              onClick={() => paginate(startPage + pageGroupSize)}
               className="glass" 
               style={{ padding: '0.5rem 1rem', background: 'none' }}
             >

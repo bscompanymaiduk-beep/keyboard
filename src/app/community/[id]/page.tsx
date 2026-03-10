@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import postsData from '@/data/posts.json';
+import { getPostById } from '@/app/actions/postActions';
 
 interface Post {
   id: string;
   title: string;
   content: string;
   author: string;
-  createdAt: string;
+  createdAt: any;
   views: number;
 }
 
@@ -18,13 +18,26 @@ export default function DetailPage() {
   const { id } = useParams();
   const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const found = postsData.find(p => p.id === id);
-    if (found) {
-      setPost(found);
+    async function loadPost() {
+      if (typeof id === 'string') {
+        const found = await getPostById(id);
+        setPost(found as any);
+      }
+      setLoading(false);
     }
+    loadPost();
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="page-container" style={{ background: '#0d0d0c', minHeight: '100vh', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p>불러오는 중...</p>
+      </div>
+    );
+  }
 
   if (!post) {
     return (

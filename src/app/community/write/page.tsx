@@ -3,21 +3,28 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { createPost } from '@/app/actions/postActions';
 
 export default function WritePage() {
   const router = useRouter();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [content, setContent] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // 실제로는 API 호출을 통해 posts.json 등을 업데이트하겠지만
-    // 클라이언트 사이드 데모를 위해 alert 후 이동
-    console.log({ title, author, content });
-    alert('게시글이 등록되었습니다. (데모 버전)');
-    router.push('/community');
+    try {
+      await createPost(title, author, content);
+      alert('게시글이 등록되었습니다.');
+      router.push('/community');
+    } catch (error) {
+      alert('등록에 실패했습니다.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -79,7 +86,9 @@ export default function WritePage() {
 
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
             <button type="button" onClick={() => router.back()} className="btn-secondary" style={{ padding: '0.8rem 2rem' }}>취소</button>
-            <button type="submit" className="btn-primary" style={{ padding: '0.8rem 3rem' }}>등록하기</button>
+            <button type="submit" disabled={isSubmitting} className="btn-primary" style={{ padding: '0.8rem 3rem' }}>
+              {isSubmitting ? '등록 중...' : '등록하기'}
+            </button>
           </div>
         </form>
       </main>

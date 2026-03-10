@@ -46,12 +46,29 @@ export default function Home() {
 
       {/* ===== HERO + SCROLL CANVAS ===== */}
       <div ref={heroContainerRef} style={{ position: 'relative' }}>
-        <ScrollCanvas
-          frameCount={160}
-          framePath="/frames/frame_"
-          frameExtension="webp"
-          scrollHeight={3}
-        />
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          zIndex: -1,
+          overflow: 'hidden'
+        }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          >
+            <source src="/hero.mp4" type="video/mp4" />
+          </video>
+        </div>
 
         {/* 스크롤 연동 텍스트 오버레이 */}
         <HeroOverlay scrollContainerRef={heroContainerRef} />
