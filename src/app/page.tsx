@@ -33,10 +33,7 @@ export default function Home() {
         <div className="navbar-inner">
           <Link href="/" className="logo">KILLSHOT</Link>
           <div className="nav-links">
-            <Link href="/store">스토어</Link>
-            <Link href="/configurator">구성기</Link>
-            <Link href="/technology">기술력</Link>
-            <Link href="/contact">문의하기</Link>
+            <Link href="/community">커뮤니티</Link>
             <button className="btn-primary-small">로그인</button>
           </div>
           <button className="mobile-menu-btn" aria-label="메뉴">
