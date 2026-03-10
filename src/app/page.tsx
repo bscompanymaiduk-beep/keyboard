@@ -66,6 +66,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section id="pricing" className="pricing-section fade-in-up delay-300">
+        <h2 className="section-title text-center">Flexible <span className="text-gradient">Plans</span></h2>
+        <div className="pricing-grid">
+          
+          <div className="glass pricing-card">
+            <div className="card-header">
+              <h3>Free</h3>
+              <p className="price">$0<span>/mo</span></p>
+            </div>
+            <ul className="features-list">
+              <li>✓ Basic task automation</li>
+              <li>✓ Single project</li>
+              <li>✓ Community support</li>
+            </ul>
+            <button className="btn-secondary w-full mt-auto">Get Started</button>
+          </div>
+
+          <div className="glass pricing-card featured">
+            <div className="card-header">
+              <h3>Pro</h3>
+              <p className="price">$49<span>/mo</span></p>
+            </div>
+            <ul className="features-list">
+              <li>✓ Advanced reasoning</li>
+              <li>✓ Multi-file editing</li>
+              <li>✓ Priority support</li>
+              <li>✓ Private repo access</li>
+            </ul>
+            <button className="btn-primary w-full mt-auto">Upgrade Now</button>
+          </div>
+
+          <div className="glass pricing-card infinite-card">
+            <div className="card-header">
+              <h3>Unlimited</h3>
+              <p className="price">∞</p>
+            </div>
+            <ul className="features-list">
+              <li>✓ Infinite AI tokens</li>
+              <li>✓ Unlimited agents</li>
+              <li>✓ Custom infrastructure</li>
+              <li>✓ 24/7 dedicated support</li>
+              <li>✓ Enterprise SLA</li>
+            </ul>
+            <button className="btn-primary w-full mt-auto">Go Infinite</button>
+          </div>
+
+        </div>
+      </section>
+
       <footer className="footer fade-in-up delay-300">
         <p>© 2026 Google Deepmind / Antigravity Team. All rights reserved.</p>
       </footer>
